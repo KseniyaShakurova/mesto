@@ -1,0 +1,26 @@
+.group {
+    width: calc(100% - 19px * 2);
+    padding: 36px 0 0 0;
+    margin: 0 auto;
+}
+
+@media (min-width: 767px) {
+    .group {
+        padding-top: 30px;
+        max-width: 584p;
+    }
+}
+
+@media (min-width: 1024px) {
+    .group {
+        width: 880px;
+        padding-top: 50px;
+    }
+}
+
+
+@media (min-width: 1279px) {
+    .group {
+        width: calc(100% - 200px*2);
+    }
+}

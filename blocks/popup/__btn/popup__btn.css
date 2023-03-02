@@ -1,0 +1,29 @@
+.popup__btn {
+    background-image: url(../../../images/CloseIcon.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #000;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    border: 0;
+    position: absolute;
+    top: -30px;
+    right: 0;
+    overflow: hidden;
+    cursor: pointer;
+    transition: opacity 1s ease;
+}
+
+.popup__btn:hover {
+   opacity: 0.5;
+}
+
+@media(min-width: 1023px) {
+    .popup__btn {
+        width: 32px;
+        height: 32px;
+        top: -40px;
+        right: -35px;
+    }
+}

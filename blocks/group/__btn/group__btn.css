@@ -1,0 +1,19 @@
+.group__btn {
+    background-image: url(../../../images/hardhard.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 22px;
+    height: 19px;
+    border: none;
+    align-self: center;
+    cursor: pointer;
+    transition: opacity 1s ease;
+}
+
+.group__btn:hover {
+   opacity: 0.3;
+}
+
+.group__btn:active {
+    background-color: #000;
+}
