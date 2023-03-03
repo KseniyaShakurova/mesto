@@ -2,7 +2,7 @@
     width: 18px;
     height: 18px;
     box-sizing: border-box;
-    background-image: url(../../../images/pen.png);
+    background-image: url(../../../images/iconPen.svg);
     background-repeat: no-repeat;
     background-position: center;
     background-color: #000000;
@@ -16,6 +16,6 @@
 }
 
 .profile__button-edit:hover {
-   opacity: 0.3;
+   opacity: 0.6;
 }
 

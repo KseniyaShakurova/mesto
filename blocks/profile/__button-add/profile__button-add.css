@@ -7,7 +7,7 @@
     margin: 36px 0 0 0;
     min-height: 50px;
     padding: 0;
-    background-image: url(../../../images/plus.png);
+    background-image: url(../../../images/iconPlus.svg);
     background-repeat: no-repeat;
     background-position: center;
     cursor: pointer;
@@ -15,7 +15,7 @@
 }
 
 .profile__button-add:hover {
-   opacity: 0.3;
+   opacity: 0.6;
 }
  
 

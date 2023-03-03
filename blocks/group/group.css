@@ -13,14 +13,9 @@
 
 @media (min-width: 1024px) {
     .group {
-        width: 880px;
+        max-width: 880px;
         padding-top: 50px;
     }
 }
 
 
-@media (min-width: 1279px) {
-    .group {
-        width: calc(100% - 200px*2);
-    }
-}
