@@ -2,7 +2,7 @@
     background-image: url(../../../images/iconHard.svg);
     background-repeat: no-repeat;
     background-position: center;
-    background-color: #fff;
+    background-color:rgba(0,0,0,0);
     padding: 0;
     border: none;
     align-self: center;
@@ -14,7 +14,7 @@
 }
 
 .group__btn:hover {
-   opacity: 0.3;
+   opacity: 0.5;
 }
 
 .group__btn:active {

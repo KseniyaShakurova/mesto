@@ -14,21 +14,25 @@
       </header>
       <main class="content">
         <section class="profile">
-          <img class="profile__image" src="./images/Avatar.png" alt="фото профиля">
+          <img class="profile__image" src="./images/Avatar.jpg" alt="фото профиля">
           <div class="profile__info">
             <h1 class="profile__title">Жак-Ив Кусто</h1>
             <button class="profile__button-edit" type="button"></button>
             <p class="profile__subtitle">Исследователь океана</p>
           </div>
-          <button class="profile__button-add" type="button"></button>
+          <div>
+            <button class="profile__button-add" type="button"></button>
+          </div>
         </section>
         <div class="popup">
-          <form class="popup__container">
-            <button class="popup__btn" type="reset"></button>
-            <h2 class="popup__title">Редактировать профиль</h2>
+          <form class="popup__container" name="form__element">
+            <div>
+              <button class="popup__btn" type="button"></button>
+              <h2 class="popup__title">Редактировать профиль</h2>
+            </div>
             <fieldset class="popup__input">
-              <input class="popup__name" type="text" name="name" placeholder="Ваше имя" value="Жак-Ив Кусто" required>
-              <input class="popup__job" type="text" name="job" placeholder="Интересное о Вас" value="Исследователь океана" required>
+              <input class="popup__info popup__info_input_name" type="text" name="name" placeholder="Ваше имя" value="Жак-Ив Кусто" required>
+              <input class="popup__info popup__info_input_job" type="text" name="job" placeholder="Интересное о Вас" value="Исследователь океана" required>
             </fieldset>
             <button class="popup__save" type="submit">Сохранить</button>
           </form>
@@ -38,7 +42,7 @@
             <li class="group__item">
               <img class="group__image" src="./images/natureone.jpg" alt="дорога в лесу">
               <div class="group__text">
-                <p class="group__title">Карачаевск</p>
+                <h2 class="group__title">Карачаевск</h2>
                 <div class="group__button-hard">
                   <button class="group__btn" type="button"></button>
                 </div>
@@ -47,7 +51,7 @@
             <li class="group__item">
               <img class="group__image" src="./images/naturetwo.jpg" alt="зеленые холмы">
               <div class="group__text">
-                <p class="group__title">Гора Эльбрус</p>
+                <h2 class="group__title">Гора Эльбрус</h2>
                 <div>
                   <button class="group__btn" type="button"></button>
                 </div>
@@ -56,7 +60,7 @@
             <li class="group__item">
               <img class="group__image" src="./images/naturethree.jpg" alt="розовый закат на берегу">
               <div class="group__text">
-                <p class="group__title">Домбай</p>
+                <h2 class="group__title">Домбай</h2>
                 <div>
                   <button class="group__btn" type="button"></button>
                 </div>
@@ -65,7 +69,7 @@
             <li class="group__item">
               <img class="group__image" src="./images/naturefour.jpg" alt="туман в долине">
               <div class="group__text">
-                <p class="group__title">Гора Эльбрус</p>
+                <h2 class="group__title">Гора Эльбрус</h2>
                 <div>
                   <button class="group__btn" type="button"></button>
                 </div>
@@ -74,7 +78,7 @@
             <li class="group__item">
               <img class="group__image" src="./images/naturetwo.jpg" alt="зеленые холмы">
               <div class="group__text">
-                <p class="group__title">Домбай</p>
+                <h2 class="group__title">Домбай</h2>
                 <div>
                   <button class="group__btn" type="button"></button>
                 </div>
@@ -83,7 +87,7 @@
             <li class="group__item">
               <img class="group__image" src="./images/naturethree.jpg" alt="розовый закат на берегу">
               <div class="group__text">
-                <p class="group__title">Карачаевск</p>
+                <h2 class="group__title">Карачаевск</h2>
                 <div>
                   <button class="group__btn" type="button"></button>
                 </div>
@@ -96,7 +100,7 @@
         <p class="footer__text">&copy;2020 Mesto Russia</p>
       </footer>
     </div>
-    <script src="./script/script.js"></script>   
+    <script src="./scripts/index.js"></script>   
   </body>
 </html>
 

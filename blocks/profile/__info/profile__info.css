@@ -3,25 +3,21 @@
     display: grid;
     grid-template-columns: 1fr 18px;
     column-gap: 10px;
-    align-self: center;
     row-gap: 14px;
+    align-self: center;
     margin: 0 auto;
-    background-color: #000;
+    max-width: 282px;
 }
 
 
-@media (min-width: 1024px) {
+@media (min-width: 1023px) {
     .profile__info {
         grid-template-columns: 1fr 24px;
-        column-gap: 25px;
+        column-gap: 18px;
         row-gap: 16px;
         padding: 0;
         margin: 0 244px 0 0;
+        max-width: 336px;
     }
 }
 
-@media (min-width: 1279px) {
-    .profile__info {
-        margin: 0 244px 0 0;
-    }
-}

@@ -1,10 +1,10 @@
-.popup__job {
-    width: 100%;
-    margin: 30px auto 0;
+.popup__info {
     box-sizing: border-box;
+    width: 100%;
+    margin: 0 auto;
     padding: 0;
     border: none;
-    border-bottom: 1px solid #000;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     min-height: 27px;
     font-style: normal;
     font-weight: 400;
@@ -12,7 +12,4 @@
     line-height: 17px;
     font-family: "Inter", Arial, sans-serif;
     color: #000;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
 }

@@ -3,6 +3,11 @@
     padding: 75px 0 45px;
     margin: 0 auto;
     max-width: 238px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    
 }
 
 @media (min-width: 1023px) {
