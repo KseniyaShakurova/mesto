@@ -19,7 +19,7 @@
 }
 
 .popup__save:hover {
-   opacity: 1;
+   opacity: 0.8;
 }
 
 @media (min-width: 1023px) {

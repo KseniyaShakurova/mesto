@@ -10,7 +10,6 @@
     position: absolute;
     top: -36px;
     right: 0;
-    overflow: hidden;
     cursor: pointer;
     transition: opacity 1s ease;
 }
