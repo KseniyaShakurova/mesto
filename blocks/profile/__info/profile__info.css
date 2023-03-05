@@ -1,10 +1,10 @@
 .profile__info {
     padding: 26px 0 0 0;
     display: grid;
+    justify-items: center;
     grid-template-columns: 1fr 18px;
     column-gap: 10px;
     row-gap: 14px;
-    align-self: center;
     margin: 0 auto;
     max-width: 282px;
 }
@@ -18,6 +18,7 @@
         padding: 0;
         margin: 0 244px 0 0;
         max-width: 336px;
+        justify-items: left;
     }
 }
 

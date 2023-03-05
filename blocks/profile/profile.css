@@ -8,8 +8,6 @@
     color: #ffffff;
 }
 
-
-
 @media (min-width: 1023px) {
     .profile {
         width: calc(100% - 72px * 2);
