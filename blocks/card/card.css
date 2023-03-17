@@ -1,7 +1,8 @@
-.group__cell {
+.card {
+    width: calc(100% - 19px * 2);
+    padding: 36px 0 0 0;
     margin: 0 auto;
     list-style: none;
-    padding: 0;
     gap: 20px;
     max-width: 282px;
     display: grid;
@@ -9,16 +10,18 @@
 }
 
 @media (min-width: 767px) {
-    .group__cell {
-        grid-template-columns: repeat(2, 1fr);
+    .card {
+        padding-top: 30px;
         max-width: 584px;
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
 @media (min-width: 1024px) {
-    .group__cell {
-        grid-template-columns: repeat(3, 1fr);
+    .card {
         max-width: 880px;
+        padding-top: 50px;
+        grid-template-columns: repeat(3, 1fr);
         column-gap: 17px;
     }
 }

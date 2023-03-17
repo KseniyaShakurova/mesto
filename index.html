@@ -22,70 +22,56 @@
           </div>
           <button class="profile__button-add" type="button"></button>
         </section>
-        <div class="popup">
-          <div class="popup__container">
-            <button class="popup__btn" type="button"></button>
-            <h2 class="popup__title">Редактировать профиль</h2>
-            <form class="popup__form" name="form__element">
-              <fieldset class="popup__input">
-                <input class="popup__info popup__info_input_name" type="text" name="name" placeholder="Ваше имя" value="Жак-Ив Кусто" required>
-                <input class="popup__info popup__info_input_job" type="text" name="job" placeholder="Интересное о Вас" value="Исследователь океана" required>
-              </fieldset>
-              <button class="popup__save" type="submit">Сохранить</button>
-            </form>
-          </div>
-        </div>
-        <section class="group">
-          <ul class="group__cell">
-            <li class="group__item">
-              <img class="group__image" src="./images/natureone.jpg" alt="дорога в лесу">
-              <div class="group__text">
-                <h2 class="group__title">Карачаевск</h2>
-                <button class="group__btn" type="button"></button>
-              </div>
-            </li>
-            <li class="group__item">
-              <img class="group__image" src="./images/naturetwo.jpg" alt="зеленые холмы">
-              <div class="group__text">
-                <h2 class="group__title">Гора Эльбрус</h2>
-                <button class="group__btn" type="button"></button>
-              </div>
-            </li>
-            <li class="group__item">
-              <img class="group__image" src="./images/naturethree.jpg" alt="розовый закат на берегу">
-              <div class="group__text">
-                <h2 class="group__title">Домбай</h2>
-                <button class="group__btn" type="button"></button>
-              </div>
-            </li>
-            <li class="group__item">
-              <img class="group__image" src="./images/naturefour.jpg" alt="туман в долине">
-              <div class="group__text">
-                <h2 class="group__title">Гора Эльбрус</h2>
-                <button class="group__btn" type="button"></button>
-              </div>
-            </li>
-            <li class="group__item">
-              <img class="group__image" src="./images/naturetwo.jpg" alt="зеленые холмы">
-              <div class="group__text">
-                <h2 class="group__title">Домбай</h2>
-                <button class="group__btn" type="button"></button>
-              </div>
-            </li>
-            <li class="group__item">
-              <img class="group__image" src="./images/naturethree.jpg" alt="розовый закат на берегу">
-              <div class="group__text">
-                <h2 class="group__title">Карачаевск</h2>
-                <button class="group__btn" type="button"></button>
-              </div>
-            </li>
-          </ul>
+        <section class="card">
         </section>
       </main>
       <footer class="footer">
         <p class="footer__text">&copy;2020 Mesto Russia</p>
       </footer>
     </div>
+    <div class="popup popup__property popup__profile">
+      <div class="popup__container">
+        <button class="popup__btn" id="popup__close-profile" type="button"></button>
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <form class="popup__form" name="form__element">
+          <fieldset class="popup__input">
+            <input class="popup__info popup__info_input_name" type="text" name="name" placeholder="Ваше имя" value="Жак-Ив Кусто" required>
+            <input class="popup__info popup__info_input_job" type="text" name="job" placeholder="Интересное о Вас" value="Исследователь океана" required>
+          </fieldset>
+          <button class="popup__save" type="submit">Сохранить</button>
+        </form>
+      </div>
+    </div>
+    <div class="popup popup__property popup__card">
+      <div class="popup__container">
+        <button class="popup__btn" id="popup__close-card" type="button"></button>
+        <h2 class="popup__title">Новое место</h2>
+        <form class="popup__form" id="popup__form-card" name="form__element">
+          <fieldset class="popup__input">
+            <input class="popup__info" id="name__card" type="text" name="name"  placeholder="Название" required>
+            <input class="popup__info" id="image__link" type="text" name="link" placeholder="Ссылка на картинку" required>
+          </fieldset>
+          <button class="popup__save"  type="submit">Создать</button>
+        </form>
+      </div>
+    </div>
+    <div class="popup popup__property popup__active">
+      <div class="popup__container-open">
+        <button class="popup__btn  popup__btn-open" id="popup__close-image" type="button"></button>
+        <img  class="popup__open-image"  src="#" alt="#">
+        <p class="popup__open-title"></p>
+      </div>
+    </div>
+    <template class="group">
+      <div class="group__item">
+        <button class="group__btn-remove"></button>
+        <img class="group__image" id="btnImg" src="" alt="">
+        <div class="group__text">
+          <h2 class="group__title"></h2>
+          <button class="group__btn" type="button"></button>
+        </div>
+      </div>
+    </template>
     <script src="./scripts/index.js"></script>   
   </body>
 </html>
