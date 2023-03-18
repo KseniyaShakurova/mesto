@@ -39,7 +39,7 @@ btnClose(popupProfile);
 });
 
  popupImage.addEventListener ('click', function() {
-  btnClose(popup);
+    btnClose(popupActive);
 })
 
 buttonPlus.addEventListener('click', function() {
@@ -47,7 +47,7 @@ buttonPlus.addEventListener('click', function() {
 });
 
 buttonClosePlus.addEventListener('click', function() {
-  btnClose(popupCard);
+   btnClose(popupCard);
 });
 
 const initialCards = [
