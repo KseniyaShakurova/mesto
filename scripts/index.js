@@ -1,5 +1,6 @@
-const popupProfile = document.querySelector('.popup__profile');
-const popupCard = document.querySelector('.popup__card');
+const popupProfile = document.querySelector('.popup_profile');
+const popupCard = document.querySelector('.popup_card');
+const popupActive = document.querySelector('.popup_active');
 const buttonPen = document.querySelector('.profile__button-edit');
 const buttonPlus = document.querySelector('.profile__button-add');
 const buttonClosePen = document.querySelector('#popup__close-profile');
@@ -11,7 +12,6 @@ const nameSave = document.querySelector('.profile__title');
 const jobSave = document.querySelector('.profile__subtitle');
 const popupImage = document.querySelector('#popup__close-image');
 const popupContainerOpen = document.querySelector('.popup__container-open');
-const popupActive = document.querySelector('.popup__active');
 const popupImageCard = document.querySelector('.popup__open-image');
 const popupTitleCard = document.querySelector('.popup__open-title');
 const nameCard = document.querySelector('#name__card');
@@ -39,7 +39,7 @@ btnClose(popupProfile);
 });
 
  popupImage.addEventListener ('click', function() {
-  btnClose(popupActive);
+  btnClose(popup);
 })
 
 buttonPlus.addEventListener('click', function() {
