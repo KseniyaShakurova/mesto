@@ -81,12 +81,12 @@ const initialCards = [
   const cardTemplate = document.querySelector('.group').content;
   const popupCardForm = document.querySelector('#popup__form-card');
   
-    initialCards.forEach((element) => {
-      cardContainer.append(сreationCard(element));
+  initialCards.forEach((element) => {
+    cardContainer.append(сreationCard(element));
 
     });
 
-    function сreationCard(element) {
+  function сreationCard(element) {
 
     const cardElement = cardTemplate.cloneNode(true);
    
@@ -96,7 +96,7 @@ const initialCards = [
     cardElement.querySelector('.group__image').alt = element.name;
 
     //увелечение картинки 
-    cardElement.querySelector('.group__image').addEventListener('click', function() {
+  cardElement.querySelector('.group__image').addEventListener('click', function() {
       popupImageCard.src = element.link;
       popupImageCard.alt = element.name;
       popupTitleCard.textContent = element.name;
@@ -105,11 +105,11 @@ const initialCards = [
   
 
     //активный лайк
-    cardElement.querySelector('.group__btn').addEventListener('click', function(evt) {
+  cardElement.querySelector('.group__btn').addEventListener('click', function(evt) {
       evt.target.classList.toggle('group__btn_active');
       });
     //удаление карточки
-    cardElement.querySelector('.group__btn-remove').addEventListener('click', function(evt) {
+  cardElement.querySelector('.group__btn-remove').addEventListener('click', function(evt) {
       const deleteCard = evt.target.closest('.group__item');
       deleteCard.remove();
     });
@@ -120,7 +120,7 @@ const initialCards = [
 
   
   
- function saveCardImg(item) {
+function saveCardImg(item) {
 
   const newCard = сreationCard(item);
 
@@ -133,16 +133,14 @@ const initialCards = [
 function handleCardForm(evt) {
     evt.preventDefault();
 
-  const info =  evt.target;
-  const name = info.querySelector('#name__card').value;
-  const link = info.querySelector('#image__link').value;
+  
+  const name = nameCard.value;
+  const link = imageLink.value;
   const cardInfo = { name, link };
 
   saveCardImg(cardInfo);
   btnClose(popupCard);
-  info.reset();
-
-  
+  evt.target.reset();
   };
 
  
