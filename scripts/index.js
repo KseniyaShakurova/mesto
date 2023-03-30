@@ -1,4 +1,5 @@
 const popupEditProfile = document.querySelector(".popup_profile");
+const popupClose = document.querySelectorAll(".popup");
 const popupEditCard = document.querySelector(".popup_card");
 const popupEditActive = document.querySelector(".popup_active");
 const buttonOpenProfile = document.querySelector(".profile__button-edit");
@@ -11,18 +12,20 @@ const nameSave = document.querySelector(".profile__title");
 const jobSave = document.querySelector(".profile__subtitle");
 const imageInputCard = document.querySelector(".popup__open-image");
 const titleInputCard = document.querySelector(".popup__open-title");
-const cardNameEdit = document.querySelector("#name__card");
-const cardImageLinkEdit = document.querySelector("#image__link");
+const cardNameEdit = document.querySelector("#popup__name-card");
+const cardImageLinkEdit = document.querySelector("#popup__link-card");
 const cardContainer = document.querySelector(".card");
 const cardTemplate = document.querySelector(".group").content;
 const formElementCard = document.querySelector("#popup__form-card");
 
 function openPopup(popup) {
   popup.classList.add("popup_opened");
+  document.addEventListener("keydown", closePopupEsc);
 }
 
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
+  document.removeEventListener("keydown", closePopupEsc);
 }
 
 initialCards.forEach((element) => {
@@ -90,6 +93,7 @@ function submitEditProfileForm(evt) {
   jobSave.textContent = formJob;
 
   closePopup(popupEditProfile);
+
 }
 
 formEditProfile.addEventListener("submit", submitEditProfileForm);
@@ -105,6 +109,21 @@ buttonsClosePopup.forEach(function (button) {
   const popups = button.closest(".popup");
 
   button.addEventListener("click", () => closePopup(popups));
+});
+
+function closePopupEsc(evt) {
+  if (evt.key === "Escape") {
+    const popupOpened = document.querySelector(".popup_opened");
+    closePopup(popupOpened);
+  }
+}
+
+popupClose.forEach(function (popup) {
+  popup.addEventListener("click", function (evt) {
+    if (evt.target.classList.contains("popup_opened")) {
+      closePopup(popup);
+    }
+  });
 });
 
 buttonOpenCard.addEventListener("click", function () {
