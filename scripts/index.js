@@ -1,5 +1,6 @@
 const popupEditProfile = document.querySelector(".popup_profile");
-const popupClose = document.querySelectorAll(".popup");
+const popupsClose = document.querySelectorAll(".popup");
+const popupSave = document.querySelector(".popup__save");
 const popupEditCard = document.querySelector(".popup_card");
 const popupEditActive = document.querySelector(".popup_active");
 const buttonOpenProfile = document.querySelector(".profile__button-edit");
@@ -20,12 +21,12 @@ const formElementCard = document.querySelector("#popup__form-card");
 
 function openPopup(popup) {
   popup.classList.add("popup_opened");
-  document.addEventListener("keydown", closePopupEsc);
+  document.addEventListener("keydown", closePopupByEsc);
 }
 
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
-  document.removeEventListener("keydown", closePopupEsc);
+  document.removeEventListener("keydown", closePopupByEsc);
 }
 
 initialCards.forEach((element) => {
@@ -81,7 +82,10 @@ function submitEditCardForm(evt) {
 
   addPlaceForNewCard(newCardInfo);
   closePopup(popupEditCard);
+  formEditProfile.reset();
   evt.target.reset();
+  evt.submitter.classList.add("popup__save_disabled");
+  evt.submitter.disabled = true;
 }
 
 function submitEditProfileForm(evt) {
@@ -93,7 +97,6 @@ function submitEditProfileForm(evt) {
   jobSave.textContent = formJob;
 
   closePopup(popupEditProfile);
-
 }
 
 formEditProfile.addEventListener("submit", submitEditProfileForm);
@@ -106,19 +109,19 @@ buttonOpenProfile.addEventListener("click", function () {
 });
 
 buttonsClosePopup.forEach(function (button) {
-  const popups = button.closest(".popup");
+  const popup = button.closest(".popup");
 
-  button.addEventListener("click", () => closePopup(popups));
+  button.addEventListener("click", () => closePopup(popup));
 });
 
-function closePopupEsc(evt) {
+function closePopupByEsc(evt) {
   if (evt.key === "Escape") {
     const popupOpened = document.querySelector(".popup_opened");
     closePopup(popupOpened);
   }
 }
 
-popupClose.forEach(function (popup) {
+popupsClose.forEach(function (popup) {
   popup.addEventListener("click", function (evt) {
     if (evt.target.classList.contains("popup_opened")) {
       closePopup(popup);
