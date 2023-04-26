@@ -1,5 +1,10 @@
+import Card from "./Card.js";
+import FormValidator from "./FormValidator.js";
+
+import { initialCards, validationFormSettings } from "./constants.js";
+
 const popupEditProfile = document.querySelector(".popup_profile");
-const popupsClose = document.querySelectorAll(".popup");
+const popups = document.querySelectorAll(".popup");
 const popupSave = document.querySelector(".popup__save");
 const popupEditCard = document.querySelector(".popup_card");
 const popupEditActive = document.querySelector(".popup_active");
@@ -19,6 +24,15 @@ const cardContainer = document.querySelector(".card");
 const cardTemplate = document.querySelector(".group").content;
 const formElementCard = document.querySelector("#popup__form-card");
 
+const addFormValidatorPopup = new FormValidator(
+  validationFormSettings,
+  formElementCard
+);
+const editFormValidatorProfile = new FormValidator(
+  validationFormSettings,
+  formEditProfile
+);
+
 function openPopup(popup) {
   popup.classList.add("popup_opened");
   document.addEventListener("keydown", closePopupByEsc);
@@ -29,49 +43,33 @@ function closePopup(popup) {
   document.removeEventListener("keydown", closePopupByEsc);
 }
 
-initialCards.forEach((element) => {
-  cardContainer.append(createCard(element));
+function closePopupByEsc(evt) {
+  if (evt.key === "Escape") {
+    const popupOpened = document.querySelector(".popup_opened");
+    closePopup(popupOpened);
+  }
+}
+
+popups.forEach(function (popup) {
+  popup.addEventListener("click", function (evt) {
+    if (evt.target.classList.contains("popup_opened")) {
+      closePopup(popup);
+    }
+  });
 });
 
-function createCard(element) {
-  const cardElement = cardTemplate.cloneNode(true);
-
-  const placeForPhoto = cardElement.querySelector(".group__image");
-  placeForPhoto.src = element.link;
-  placeForPhoto.alt = element.name;
-  cardElement.querySelector(".group__title").textContent = element.name;
-
-  //увелечение картинки
-
-  placeForPhoto.addEventListener("click", function () {
-    imageInputCard.src = element.link;
-    imageInputCard.alt = element.name;
-    titleInputCard.textContent = element.name;
-    openPopup(popupEditActive);
-  });
-
-  //активный лайк
-  cardElement
-    .querySelector(".group__btn")
-    .addEventListener("click", function (evt) {
-      evt.target.classList.toggle("group__btn_active");
-    });
-  //удаление карточки
-  cardElement
-    .querySelector(".group__btn-remove")
-    .addEventListener("click", function (evt) {
-      const deleteCard = evt.target.closest(".group__item");
-      deleteCard.remove();
-    });
-
-  return cardElement;
+function createCard(item) {
+  const newCard = new Card(item, ".group", openImage);
+  return newCard.generateCard();
 }
 
-function addPlaceForNewCard(item) {
-  const newCard = createCard(item);
-
-  cardContainer.prepend(newCard);
+function addPlaceForNewCard(item, templateSelector) {
+  cardContainer.prepend(createCard(item, templateSelector));
 }
+
+initialCards.forEach(function (item) {
+  addPlaceForNewCard(item, ".group");
+});
 
 function submitEditCardForm(evt) {
   evt.preventDefault();
@@ -80,12 +78,17 @@ function submitEditCardForm(evt) {
   const link = cardImageLinkEdit.value;
   const newCardInfo = { name, link };
 
-  addPlaceForNewCard(newCardInfo);
+  addPlaceForNewCard(newCardInfo, ".group");
   closePopup(popupEditCard);
-  formEditProfile.reset();
   evt.target.reset();
-  evt.submitter.classList.add("popup__save_disabled");
-  evt.submitter.disabled = true;
+  addFormValidatorPopup.disableButton();
+}
+
+function openImage(link, name) {
+  imageInputCard.src = link;
+  imageInputCard.alt = name;
+  titleInputCard.textContent = name;
+  openPopup(popupEditActive);
 }
 
 function submitEditProfileForm(evt) {
@@ -114,21 +117,9 @@ buttonsClosePopup.forEach(function (button) {
   button.addEventListener("click", () => closePopup(popup));
 });
 
-function closePopupByEsc(evt) {
-  if (evt.key === "Escape") {
-    const popupOpened = document.querySelector(".popup_opened");
-    closePopup(popupOpened);
-  }
-}
-
-popupsClose.forEach(function (popup) {
-  popup.addEventListener("click", function (evt) {
-    if (evt.target.classList.contains("popup_opened")) {
-      closePopup(popup);
-    }
-  });
-});
-
 buttonOpenCard.addEventListener("click", function () {
   openPopup(popupEditCard);
 });
+
+editFormValidatorProfile.enableValidation();
+addFormValidatorPopup.enableValidation();
