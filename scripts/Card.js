@@ -2,7 +2,6 @@ class Card {
   constructor(data, templateSelector, openImage) {
     this._name = data.name;
     this._link = data.link;
-    this._alt = data.alt;
     this._openImage = openImage;
     this._templateSelector = templateSelector;
   }
@@ -37,7 +36,7 @@ class Card {
       this._likeActive();
     });
     this._imageElement.addEventListener("click", () => {
-      this._openImage(this._link, this._name, this._alt);
+      this._openImage(this._link, this._name);
     });
   }
 

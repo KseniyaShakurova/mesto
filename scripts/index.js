@@ -51,7 +51,7 @@ function closePopupByEsc(evt) {
 }
 
 popups.forEach(function (popup) {
-  popup.addEventListener("click", function (evt) {
+  popup.addEventListener("mousedown,", function (evt) {
     if (evt.target.classList.contains("popup_opened")) {
       closePopup(popup);
     }
