@@ -21,12 +21,12 @@ const cardTemplate = document.querySelector(".group").content;
 export const formElementCard = document.querySelector("#popup__form-card");
 
 
-const london = new URL('../images/london.jpg', import.meta.url);
-const china = new URL('../images/china.jpg', import.meta.url);
+const london = new URL('../images/bali.jpg', import.meta.url);
+const china = new URL('../images/fotoOne.jpg', import.meta.url);
 const paris = new URL('../images/paris.jpg', import.meta.url);
-const mexico = new URL('../images/mexico.jpg', import.meta.url);
-const japan = new URL('../images/japan.jpg', import.meta.url);
-const bali = new URL('../images/bali.jpg', import.meta.url);
+const mexico = new URL('../images/fotothre.jpg', import.meta.url);
+const japan = new URL('../images/fototwo.jpg', import.meta.url);
+const bali = new URL('../images/fotofour.jpg', import.meta.url);
 
 export const initialCards = [
   {
