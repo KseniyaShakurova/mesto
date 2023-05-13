@@ -21,37 +21,37 @@ const cardTemplate = document.querySelector(".group").content;
 export const formElementCard = document.querySelector("#popup__form-card");
 
 
-const london = new URL('../images/bali.jpg', import.meta.url);
-const china = new URL('../images/fotoOne.jpg', import.meta.url);
-const paris = new URL('../images/paris.jpg', import.meta.url);
-const mexico = new URL('../images/fotothre.jpg', import.meta.url);
-const japan = new URL('../images/fototwo.jpg', import.meta.url);
-const bali = new URL('../images/fotofour.jpg', import.meta.url);
+const kamchatka = new URL('../images/kamchatka.jpg', import.meta.url);
+const altai = new URL('../images/altai.jpg', import.meta.url);
+const karelia = new URL('../images/karelia.jpg', import.meta.url);
+const baikal = new URL('../images/baikal.jpg', import.meta.url);
+const sochi = new URL('../images/sochi.jpg', import.meta.url);
+const elbrus = new URL('../images/elbrus.jpg', import.meta.url);
 
 export const initialCards = [
   {
-    name: "London",
-    link: london,
+    name: "Kamchatka",
+    link: kamchatka,
   },
   {
-    name: "China",
-    link: china,
+    name: "Altai",
+    link: altai,
   },
   {
-    name: "Paris",
-    link: paris,
+    name: "Karelia",
+    link: karelia,
   },
   {
-    name: "Mexico",
-    link: mexico,
+    name: "Baikal",
+    link: baikal,
   },
   {
-    name: "Japan",
-    link: japan,
+    name: "Sochi",
+    link: sochi,
   },
   {
-    name: "Bali",
-    link: bali,
+    name: "Elbrus",
+    link: elbrus,
   },
 ];
 
