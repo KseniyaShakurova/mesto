@@ -1,7 +1,10 @@
+
+
 export default class UserInfo {
-    constructor({nameInput, aboutInput}) {
+    constructor({nameInput, aboutInput, avatar}) {
         this._nameInput= document.querySelector(nameInput);
         this._aboutInput = document.querySelector(aboutInput);
+        this._avatarUser = document.querySelector(avatar);
     }
     getUserInfo () {
         const infoNew = {
@@ -14,5 +17,23 @@ export default class UserInfo {
     setUserInfo({inputName, inputAbout}) {
         this._nameInput.textContent = inputName;
         this._aboutInput.textContent = inputAbout;
+        
     }
+    
+    setAvatar({avatar}) {
+        this._avatarUser.src = avatar;
+        console.log({avatar})
+    }
+
+    getUserId() {
+        return this._userId;
+        
+    }
+   
+    saveUserId(userId) {
+        this._userId = userId;
+        console.log(userId)
+    }
+    
 }
+

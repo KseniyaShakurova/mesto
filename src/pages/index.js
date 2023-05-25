@@ -1,16 +1,18 @@
-import '../pages/index.css';
+import "../pages/index.css";
 
+import Api from "../components/Api.js";
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
+import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
 import PopupWithForm from "../components/PopupWithForm.js";
-import PopupWithImage from '../components/PopupWithImage.js';
-import UserInfo from '../components/UserInfo.js';
-import Section from '../components/Section.js';
+import PopupWithImage from "../components/PopupWithImage.js";
+import UserInfo from "../components/UserInfo.js";
+import Section from "../components/Section.js";
 
-import { initialCards, validationFormSettings } from "../utils/constants.js";
+import { validationFormSettings } from "../utils/constants.js";
 import {
-  nameImput, 
-  jobInput, 
+  nameImput,
+  jobInput,
   cardContainer,
   popupEditActive,
   popupEditProfile,
@@ -21,9 +23,14 @@ import {
   buttonOpenCard,
   formElementCard,
   formEditProfile,
-  
-  } from '../utils/constants.js';
+  popupCardDelete,
+  formAvatar,
+  popupAvatar,
+  buttonOpenProfileAvatar,
+  buttonDeleteCard
+} from "../utils/constants.js";
 
+let userId;
 
 const addFormValidatorPopup = new FormValidator(
   validationFormSettings,
@@ -34,56 +41,164 @@ const editFormValidatorProfile = new FormValidator(
   formEditProfile
 );
 
+const avatarFormValidator = new FormValidator(
+  validationFormSettings,
+  formAvatar
+);
+
 editFormValidatorProfile.enableValidation();
 addFormValidatorPopup.enableValidation();
+avatarFormValidator.enableValidation();
 
 const userInfo = new UserInfo({
-  nameInput: '.profile__title',
-  aboutInput: '.profile__subtitle'
+  nameInput: ".profile__title",
+  aboutInput: ".profile__subtitle",
+  avatar: ".profile__image",
 });
 
-console.log(userInfo)
+const popupNewAvatar = new PopupWithForm(popupAvatar, {
+  submitEdit: ({ "popup__avatar-card": userAvatar }) => {
+    popupNewAvatar.loadingMessage(true, "Сохранение...");
+    api.updateAvatar(userAvatar)
+      .then(({avatar}) => {
+        userInfo.setAvatar({ 
+          newUserAvatar: avatar
+        });
+        popupNewAvatar.close();
+      })
+      
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        popupNewAvatar.loadingMessage(false);
+      });
+  },
+});
+
+
+
+
+
+popupNewAvatar.setEventListeners();
+
+buttonOpenProfileAvatar.addEventListener("click", () => {
+  popupNewAvatar.open();
+  avatarFormValidator.hideInputErrors();
+});
 
 function handleCardClick(link, name) {
   popupImage.open(link, name);
 }
 
-function createCard(item) {
-  const newCard = new Card(item, ".group", handleCardClick);
+function createCard(data, userId) {
+  const newCard = new Card(
+    {
+      name: data.name,
+      link: data.link,
+      likes: data.likes,
+      userId: userInfo.getUserId(),
+      ownerId: data.owner._id,
+      id: data._id,
+      
+      
+    },
+    ".group",
+    handleCardClick,
+    
+    {
+      handleDeleteCard: (data) => {
+        popupConfirm.loadingMessage(true, "Сохранение...");
+        popupConfirm.setSubmitAction((evt) => {
+          evt.preventDefault();
+          api.deleteCard(data);
+          then(() => {
+            newCard.deleteCard(userId);
+            popupConfirm.close();
+          }).catch((err) => {
+            console.log(err);
+          });
+        });
+        popupConfirm.open();
+      },
+      like: (id) => {
+        api
+          .likes(id)
+          .then((data) => {
+            newCard.countLikes(data.likes);
+            newCard.like();
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      },
+
+      dislike: () => {
+        api
+          .disLikes(data)
+          .then((data) => {
+            newCard.countLikes(data.likes);
+            newCard.dislike();
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      },
+    }
+  );
   return newCard.generateCard();
+  
 }
+console.log()
 
-const newSection = new Section ({
-  items: initialCards,
-  renderer: (item) => {
-    newSection.addItem(createCard(item));
-  }
-}, 
-cardContainer
+
+const newSection = new Section(
+  {
+    renderer: (item) => {
+      newSection.addItemToBeginning(createCard(item));
+    },
+  },
+  cardContainer
 );
-newSection.renderItems();
-
 
 const popupImage = new PopupWithImage(popupEditActive);
 popupImage.setEventListeners();
 
+const popupConfirm = new PopupWithConfirmation(popupCardDelete);
+popupConfirm.setEventListeners;
 
 
-const submitEditProfile = new PopupWithForm(
-  popupEditProfile, 
-  {submitEdit: ({
-    'profile-name': inputName,
-    'job': inputAbout
+
+const submitEditProfile = new PopupWithForm(popupEditProfile, {
+  submitEdit: ({ 
+    "profile-name": inputName, 
+    "job" : inputAbout 
   }) => {
-    userInfo.setUserInfo({inputName, inputAbout})
-  }
-})
+    submitEditProfile.loadingMessage(true, "Сохранение...");
+    api
+      .setUserInfo({ inputName, inputAbout })
+      .then(({ name, about }) => {
+        userInfo.setUserInfo({
+          inputName: name,
+          inputAbout: about,
+        });
+        submitEditProfile.close();
+      })
+      .catch((err) => {
+        console.log(err);
+      })
 
-submitEditProfile.setEventListeners()
+      .finally(() => {
+        submitEditProfile.loadingMessage(false);
+      });
+  },
+});
+submitEditProfile.setEventListeners();
 
 buttonOpenProfile.addEventListener("click", () => {
   submitEditProfile.setInputValues(userInfo.getUserInfo());
   editProfileInput();
+
   submitEditProfile.open();
   editFormValidatorProfile.hideInputErrors();
 });
@@ -93,26 +208,56 @@ function editProfileInput() {
   jobInput.value = jobSave.textContent;
 }
 
-const newCard = new PopupWithForm(popupEditCard, 
-  {submitEdit: ({
-    'popup__name-card': name,
-    'popup__link-card': link,
-
+const popupWithForm = new PopupWithForm(popupEditCard, {
+  submitEdit: ({ 
+    "popup__name-card": name, 
+    "popup__link-card": link 
   }) => {
-    newSection.addItem(createCard({name, link}));
-  }
-  });
-newCard.setEventListeners();
-
+    popupWithForm.loadingMessage(true, "Сохранение...");
+    api.createNewCard({name,link})
+    .then((res) => {
+      newSection.addItem(createCard(res, userId));
+      popupWithForm.close();
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      popupWithForm.loadingMessage(false);
+    })
+  },
+});
+popupWithForm.setEventListeners();
 
 buttonOpenCard.addEventListener("click", function () {
   addFormValidatorPopup.hideInputErrors();
-  newCard.open();
+  popupWithForm.open();
 });
 
+const api = new Api({
+  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-66",
+  headers: {
+    authorization: 
+    "aa98c8c5-50a3-4af7-9387-defe134c3e66",
+    "Content-Type": "application/json",
+  },
+});
 
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then(([userData, cards]) => {
+    //userId = userData._id;
+    userInfo.saveUserId(userData._id)
+    console.log(userInfo)
+    userInfo.setUserInfo({
+      inputName: userData.name,
+      inputAbout: userData.about,
+    });
+    userInfo.setAvatar({
+      newUserAvatar: userData.avatar,
+      
+    });
+    newSection.renderItems(cards);
+  })
 
-
-
-
-
+  .catch((err) => console.log(err));
+  
