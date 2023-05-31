@@ -68,7 +68,6 @@ class Card {
     if (this._userId !== this._ownerId) {
       this._deleteElement.remove();
       this._deleteElement = null;
-      console.log(this._ownerId);
     }
   }
 

@@ -81,6 +81,7 @@ popupNewAvatar.setEventListeners();
 buttonOpenProfileAvatar.addEventListener("click", () => {
   popupNewAvatar.open();
   avatarFormValidator.hideInputErrors();
+  avatarFormValidator.disableButton();
 });
 
 function handleCardClick(link, name) {
@@ -215,6 +216,7 @@ popupWithForm.setEventListeners();
 
 buttonOpenCard.addEventListener("click", function () {
   addFormValidatorPopup.hideInputErrors();
+  addFormValidatorPopup.disableButton();
   popupWithForm.open();
 });
 
