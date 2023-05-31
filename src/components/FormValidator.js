@@ -37,8 +37,8 @@ export default class FormValidator {
   hideInputErrors = () => {
     this._formInputs.forEach((input) => {
       this._hideInputError(input);
-    })
-  }
+    });
+  };
 
   _hasInvalidInput() {
     return this._formInputs.some((inputElement) => {

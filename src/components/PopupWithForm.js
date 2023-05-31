@@ -32,7 +32,6 @@ export default class PopupWithForm extends Popup {
       evt.preventDefault();
 
       this._submitEdit(this._getInputValues());
-      
     });
   }
 
@@ -49,5 +48,3 @@ export default class PopupWithForm extends Popup {
     this._formSelector.reset();
   }
 }
-
-

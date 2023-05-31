@@ -27,10 +27,9 @@ import {
   formAvatar,
   popupAvatar,
   buttonOpenProfileAvatar,
-  buttonDeleteCard
 } from "../utils/constants.js";
 
-let userId;
+let userId = null;
 
 const addFormValidatorPopup = new FormValidator(
   validationFormSettings,
@@ -59,14 +58,15 @@ const userInfo = new UserInfo({
 const popupNewAvatar = new PopupWithForm(popupAvatar, {
   submitEdit: ({ "popup__avatar-card": userAvatar }) => {
     popupNewAvatar.loadingMessage(true, "Сохранение...");
-    api.updateAvatar(userAvatar)
-      .then(({avatar}) => {
-        userInfo.setAvatar({ 
-          newUserAvatar: avatar
+    api
+      .updateAvatar(userAvatar)
+      .then(({ avatar }) => {
+        userInfo.setAvatar({
+          avatar: avatar,
         });
         popupNewAvatar.close();
       })
-      
+
       .catch((err) => {
         console.log(err);
       })
@@ -75,10 +75,6 @@ const popupNewAvatar = new PopupWithForm(popupAvatar, {
       });
   },
 });
-
-
-
-
 
 popupNewAvatar.setEventListeners();
 
@@ -91,7 +87,7 @@ function handleCardClick(link, name) {
   popupImage.open(link, name);
 }
 
-function createCard(data, userId) {
+function createCard(data) {
   const newCard = new Card(
     {
       name: data.name,
@@ -99,34 +95,30 @@ function createCard(data, userId) {
       likes: data.likes,
       userId: userInfo.getUserId(),
       ownerId: data.owner._id,
-      id: data._id,
-      
-      
+      _id: data._id,
     },
     ".group",
     handleCardClick,
-    
+
     {
-      handleDeleteCard: (data) => {
-        popupConfirm.loadingMessage(true, "Сохранение...");
-        popupConfirm.setSubmitAction((evt) => {
-          evt.preventDefault();
-          api.deleteCard(data);
-          then(() => {
-            newCard.deleteCard(userId);
-            popupConfirm.close();
-          }).catch((err) => {
-            console.log(err);
-          });
-        });
+      deleteCard: (cardId) => {
         popupConfirm.open();
+        popupConfirm.submitAdd(function () {
+          api
+            .deleteCard(cardId)
+            .then(() => {
+              newCard.deleteMyCard();
+              popupConfirm.close();
+            })
+            .catch((err) => console.log(err));
+        });
       },
-      like: (id) => {
+      likeCard: () => {
         api
-          .likes(id)
+          .likeCard(data)
           .then((data) => {
-            newCard.countLikes(data.likes);
-            newCard.like();
+            newCard.countLikes(data);
+            newCard.putLikeCard();
           })
           .catch((err) => {
             console.log(err);
@@ -135,10 +127,10 @@ function createCard(data, userId) {
 
       dislike: () => {
         api
-          .disLikes(data)
+          .disLike(data)
           .then((data) => {
-            newCard.countLikes(data.likes);
-            newCard.dislike();
+            newCard.countLikes(data);
+            newCard.dislikeCard();
           })
           .catch((err) => {
             console.log(err);
@@ -147,10 +139,7 @@ function createCard(data, userId) {
     }
   );
   return newCard.generateCard();
-  
 }
-console.log()
-
 
 const newSection = new Section(
   {
@@ -165,15 +154,12 @@ const popupImage = new PopupWithImage(popupEditActive);
 popupImage.setEventListeners();
 
 const popupConfirm = new PopupWithConfirmation(popupCardDelete);
-popupConfirm.setEventListeners;
 
-
+popupConfirm.setEventListeners();
+console.log(popupConfirm);
 
 const submitEditProfile = new PopupWithForm(popupEditProfile, {
-  submitEdit: ({ 
-    "profile-name": inputName, 
-    "job" : inputAbout 
-  }) => {
+  submitEdit: ({ "profile-name": inputName, job: inputAbout }) => {
     submitEditProfile.loadingMessage(true, "Сохранение...");
     api
       .setUserInfo({ inputName, inputAbout })
@@ -209,22 +195,20 @@ function editProfileInput() {
 }
 
 const popupWithForm = new PopupWithForm(popupEditCard, {
-  submitEdit: ({ 
-    "popup__name-card": name, 
-    "popup__link-card": link 
-  }) => {
-    popupWithForm.loadingMessage(true, "Сохранение...");
-    api.createNewCard({name,link})
-    .then((res) => {
-      newSection.addItem(createCard(res, userId));
-      popupWithForm.close();
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-    .finally(() => {
-      popupWithForm.loadingMessage(false);
-    })
+  submitEdit: ({ "popup__name-card": name, "popup__link-card": link }) => {
+    popupWithForm.loadingMessage(true, "Создать");
+    api
+      .createNewCard({ name, link })
+      .then((res) => {
+        newSection.addItem(createCard(res, userId));
+        popupWithForm.close();
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        popupWithForm.loadingMessage(false);
+      });
   },
 });
 popupWithForm.setEventListeners();
@@ -237,27 +221,23 @@ buttonOpenCard.addEventListener("click", function () {
 const api = new Api({
   baseUrl: "https://mesto.nomoreparties.co/v1/cohort-66",
   headers: {
-    authorization: 
-    "aa98c8c5-50a3-4af7-9387-defe134c3e66",
+    authorization: "aa98c8c5-50a3-4af7-9387-defe134c3e66",
     "Content-Type": "application/json",
   },
 });
 
 Promise.all([api.getUserInfo(), api.getInitialCards()])
-  .then(([userData, cards]) => {
-    //userId = userData._id;
-    userInfo.saveUserId(userData._id)
-    console.log(userInfo)
+  .then(([data, items]) => {
+    userInfo.saveUserId(data._id);
+    console.log(userInfo);
     userInfo.setUserInfo({
-      inputName: userData.name,
-      inputAbout: userData.about,
+      inputName: data.name,
+      inputAbout: data.about,
     });
     userInfo.setAvatar({
-      newUserAvatar: userData.avatar,
-      
+      avatar: data.avatar,
     });
-    newSection.renderItems(cards);
+    newSection.renderItems(items);
   })
 
   .catch((err) => console.log(err));
-  
